@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Panel } from "@/components/primitives";
-import { DASH, EmailItem, EmailAccount } from "@/lib/data";
+import { EmailItem, EmailAccount } from "@/lib/data";
+import { useDash } from "@/lib/dash-context";
 
 type Tone = "gentle" | "neutral" | "blunt";
 
@@ -42,6 +43,7 @@ function EmailRow({ m, onClear }: { m: EmailItem; onClear: () => void }) {
 }
 
 export function UrgentEmail({ tone, glance = "30s" }: { tone: Tone; glance?: string }) {
+  const DASH = useDash();
   const [accts, setAccts] = useState<EmailAccount[]>(DASH.email.accounts);
   const clear = (aid: string, idx: number) => setAccts(a => a.map(ac =>
     ac.id === aid ? { ...ac, urgent: ac.urgent.filter((_, i) => i !== idx) } : ac));

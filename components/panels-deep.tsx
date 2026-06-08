@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Panel, Spark, PlanShipBars, Gauge } from "@/components/primitives";
-import { DASH, ReAsk, StalledItem, FocusSegment } from "@/lib/data";
+import { ReAsk, StalledItem, FocusSegment } from "@/lib/data";
+import { useDash } from "@/lib/dash-context";
 
 type Tone = "gentle" | "neutral" | "blunt";
 
@@ -45,6 +46,7 @@ function IndicatorRow({ ind }: IndicatorRowProps) {
 }
 
 export function PlanVsShip({ glance = "30s" }: { glance?: string }) {
+  const DASH = useDash();
   const ex = DASH.execution;
   const totPlan = ex.weeks.reduce((a, w) => a + w.planned, 0);
   const totShip = ex.weeks.reduce((a, w) => a + w.shipped, 0);
@@ -76,6 +78,7 @@ export function PlanVsShip({ glance = "30s" }: { glance?: string }) {
 }
 
 export function LeadingLagging({ glance = "30s" }: { glance?: string }) {
+  const DASH = useDash();
   const ind = DASH.indicators;
   return (
     <Panel title="Leading vs Lagging" glance={glance} accent="var(--go)">
@@ -98,6 +101,7 @@ export function LeadingLagging({ glance = "30s" }: { glance?: string }) {
 }
 
 export function ReAsks({ glance = "deep" }: { glance?: string }) {
+  const DASH = useDash();
   const [items, setItems] = useState<ReAsk[]>(DASH.reAsks);
   const promote = (id: number) => setItems(x => x.map(i => i.id === id ? { ...i, promoted: true } : i));
   const sorted = [...items].sort((a, b) => b.count - a.count);
@@ -133,6 +137,7 @@ const SEG: Record<FocusSegment["type"], string> = {
 };
 
 export function FocusLog({ glance = "deep" }: { glance?: string }) {
+  const DASH = useDash();
   const f = DASH.focus;
   const total = f.timeline.reduce((a, s) => a + s.len, 0);
   return (
@@ -169,6 +174,7 @@ export function FocusLog({ glance = "deep" }: { glance?: string }) {
 }
 
 export function StalledList({ tone, glance = "deep" }: { tone: Tone; glance?: string }) {
+  const DASH = useDash();
   const [items, setItems] = useState<StalledItem[]>(DASH.stalled);
   const act = (id: string) => setItems(x => x.filter(i => i.id !== id));
   const head = tone === "blunt" ? "You are avoiding these"

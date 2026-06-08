@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Panel, RatioBar, bandColor, bandName } from "@/components/primitives";
-import { DASH, Swimlane, LaneDetail } from "@/lib/data";
+import { Swimlane, LaneDetail } from "@/lib/data";
+import { useDash } from "@/lib/dash-context";
 
 /* ─── helpers ─── */
 
@@ -449,6 +450,7 @@ function WCalendar({ detail }: { detail: LaneDetail }) {
 /* ─── LaneWidgets (exported) ─── */
 
 export function LaneWidgets({ laneKey }: { laneKey: string }) {
+  const DASH = useDash();
   const lane = DASH.swimlanes.find((l) => l.key === laneKey) || DASH.swimlanes[0];
   const detail = DASH.laneDetail[lane.key];
   const color = bandColor(lane.shipped / lane.planned);

@@ -6,7 +6,7 @@ import { LaneWidgets } from "./lane-widgets";
 import { HeroExecution, NextAction, ProjectMomentum } from "./panels-core";
 import { PlanVsShip, LeadingLagging, ReAsks, FocusLog, StalledList } from "./panels-deep";
 import { UrgentEmail } from "./panels-email";
-import { DASH } from "@/lib/data";
+import { DashProvider, useDash, useDashMeta } from "@/lib/dash-context";
 
 /* ─── Types ─── */
 
@@ -314,6 +314,16 @@ function Grid({ variation, tone, status, setStatus }: GridProps) {
 /* ─── DashboardShell (exported) ─── */
 
 export function DashboardShell() {
+  return (
+    <DashProvider>
+      <DashboardShellInner />
+    </DashProvider>
+  );
+}
+
+function DashboardShellInner() {
+  const DASH = useDash();
+  const { refresh, lastRefresh, isLive, loading } = useDashMeta();
   const [variation, setVariation] = useState<Variation>("gap");
   const [tone, setTone] = useState<Tone>("blunt");
   const [theme, setTheme] = useState<Theme>("paper");
@@ -323,6 +333,10 @@ export function DashboardShell() {
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
+
+  const footerLabel = isLive
+    ? `LIVE${lastRefresh ? ` · refreshed ${lastRefresh.toLocaleTimeString()}` : ""}`
+    : "SAMPLE DATA · illustrative";
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
@@ -352,11 +366,30 @@ export function DashboardShell() {
           gap: 10,
         }}
       >
-        <span className="mono" style={{ fontSize: 10, color: "var(--faint)", letterSpacing: ".04em" }}>
-          SAMPLE DATA &middot; illustrative &middot; grounded in self-reported patterns, not mined transcripts
-        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span className="mono" style={{ fontSize: 10, color: isLive ? "var(--go)" : "var(--faint)", letterSpacing: ".04em" }}>
+            {footerLabel}
+          </span>
+          <button
+            onClick={refresh}
+            disabled={loading}
+            style={{
+              all: "unset",
+              cursor: loading ? "wait" : "pointer",
+              fontFamily: "var(--mono)",
+              fontSize: 10,
+              color: "var(--muted)",
+              padding: "2px 6px",
+              borderRadius: 4,
+              border: "1px solid var(--line-soft)",
+              opacity: loading ? 0.5 : 1,
+            }}
+          >
+            ↻ refresh
+          </button>
+        </div>
         <span className="mono" style={{ fontSize: 10, color: "var(--faint)" }}>
-          Sun 7 Jun 2026 &middot; {LAYOUTS[variation].name}
+          {new Date().toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short", year: "numeric" })} &middot; {LAYOUTS[variation].name}
         </span>
       </footer>
     </div>

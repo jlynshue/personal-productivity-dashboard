@@ -11,7 +11,8 @@ import {
   bandName,
   STATUS,
 } from "@/components/primitives";
-import { DASH, Project } from "@/lib/data";
+import { Project } from "@/lib/data";
+import { useDash } from "@/lib/dash-context";
 
 type Tone = "gentle" | "neutral" | "blunt";
 
@@ -45,6 +46,7 @@ interface HeroExecutionProps {
 }
 
 export function HeroExecution({ tone, big }: HeroExecutionProps) {
+  const DASH = useDash();
   const ex = DASH.execution;
   const ratio: number = ex.ratio;
   const color: string = bandColor(ratio);
@@ -267,6 +269,7 @@ interface NextActionProps {
 }
 
 export function NextAction({ status, setStatus, tone, big }: NextActionProps) {
+  const DASH = useDash();
   const t = DASH.today;
   const meta: NextMeta = NEXT_META[NEXT[status]];
 
@@ -416,6 +419,7 @@ interface ProjectMomentumProps {
 }
 
 export function ProjectMomentum({ glance = "30s" }: ProjectMomentumProps) {
+  const DASH = useDash();
   const [proj, setProj] = useState<Project[]>(DASH.projects);
 
   const cycle = (id: string): void =>

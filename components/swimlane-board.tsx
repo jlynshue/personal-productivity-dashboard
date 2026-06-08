@@ -1,7 +1,8 @@
 "use client";
 
 import { bandColor, bandName, RatioBar } from "@/components/primitives";
-import { DASH, Swimlane } from "@/lib/data";
+import { Swimlane } from "@/lib/data";
+import { useDash } from "@/lib/dash-context";
 
 type Tone = "gentle" | "neutral" | "blunt";
 
@@ -139,6 +140,7 @@ function LaneRow({ lane, i, open, onToggle, tone }: LaneRowProps) {
 
 /* the quiet rolled-up minor strip */
 function OpsStrip() {
+  const DASH = useDash();
   const o = DASH.ops;
   return (
     <div className="rise" style={{ animationDelay: "400ms", display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap",
@@ -172,6 +174,7 @@ interface SwimlaneBoardProps {
 
 /* THE TOPLINE BOARD */
 export function SwimlaneBoard({ tone, selected, onSelect }: SwimlaneBoardProps) {
+  const DASH = useDash();
   const lanes = DASH.swimlanes;
   const o = DASH.ops;
   const totPlan = lanes.reduce((a, l) => a + l.planned, 0) + o.planned;
