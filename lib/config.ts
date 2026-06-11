@@ -1,6 +1,6 @@
 import { join } from "path";
 
-const CODE_PROJECTS = "/Users/jonathanlyn-shue/code-projects";
+const CODE_PROJECTS = process.env.CODE_PROJECTS_ROOT || "/Users/user/code-projects";
 
 export const PATHS = {
   unifiedTasks: join(CODE_PROJECTS, "outputs/unified_tasks.json"),

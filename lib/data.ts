@@ -289,7 +289,7 @@ export const DASH: DashData = {
   email: {
     accounts: [
       {
-        id: "anuba", label: "jon@anuba.dev", lane: "anuba", kind: "work", unread: 38, urgent: [
+        id: "work", label: "user@startup.dev", lane: "work", kind: "work", unread: 38, urgent: [
           { from: "Seed investor", subject: "Re: deck follow-up — still need the metrics slide", days: 3, need: "reply" },
           { from: "Design partner", subject: "Are we shipping the v0.3 build this week?", days: 1, need: "decide" },
         ],
@@ -301,7 +301,7 @@ export const DASH: DashData = {
         ],
       },
       {
-        id: "personal", label: "jonathan.lynshue@gmail.com", lane: "personal", kind: "personal", unread: 211, urgent: [
+        id: "personal", label: "user@example.com", lane: "personal", kind: "personal", unread: 211, urgent: [
           { from: "Landlord", subject: "Lease renewal — respond by Friday", days: 2, need: "decide" },
           { from: "Dr. Okafor · Dental", subject: "Confirm your appointment (2nd reminder)", days: 9, need: "reply" },
         ],

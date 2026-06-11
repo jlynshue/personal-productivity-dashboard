@@ -6,7 +6,7 @@ import type { Email, EmailAccount } from "@/lib/data";
 const DEFAULT_ACCOUNTS: EmailAccount[] = [
   {
     id: "anuba",
-    label: "jonathan@anubatechnologies.com",
+    label: "work@company.com",
     lane: "anuba",
     kind: "work",
     unread: 0,
@@ -14,7 +14,7 @@ const DEFAULT_ACCOUNTS: EmailAccount[] = [
   },
   {
     id: "personal",
-    label: "jonathan.lynshue@gmail.com",
+    label: "user@example.com",
     lane: "personal",
     kind: "personal",
     unread: 0,
@@ -22,7 +22,7 @@ const DEFAULT_ACCOUNTS: EmailAccount[] = [
   },
   {
     id: "consulting",
-    label: "jonathan@denmother.io",
+    label: "consulting@agency.io",
     lane: "consulting",
     kind: "clients",
     unread: 0,
