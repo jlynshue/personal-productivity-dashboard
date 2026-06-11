@@ -1,5 +1,6 @@
 # Personal Productivity Dashboard
 
+[![CI](https://github.com/jlynshue/personal-productivity-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/jlynshue/personal-productivity-dashboard/actions/workflows/ci.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16.2-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-06B6D4)
